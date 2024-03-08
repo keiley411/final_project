@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String   @db.VarChar(255)
+  description String?  @db.VarChar(255)
+  price       Decimal  @db.Decimal(10, 3)
+  image_url   String?  @db.VarChar(255)
+  category_id String
+  rating      Decimal  @default(0)
+  category    Category @relation(fields: [category_id], references: [id])
+  orders      Order[]
+}
+
+model User {
+  id             String     @id @default(uuid())
+  user_name      String     @unique
+  email          String     @unique
+  hashedPassword String
+  payments       Payment[]
+  shipments      Shipment[]
+  orders         Order[]
+}
+
+model Payment {
+  id      String  @id @default(uuid())
+  user_id String
+  name    String
+  method  String
+  amount  Decimal
+  user    User    @relation(fields: [user_id], references: [id])
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  title     String
+  image_url String
+  products  Product[]
+}
+
+model Shipment {
+  id      String @id @default(uuid())
+  status  String @default("not delivered")
+  address String
+  user_id String
+  user    User   @relation(fields: [user_id], references: [id])
+}
+
+model Order {
+  id         String  @id @default(uuid())
+  user_id    String
+  product_id String
+  quantity   Decimal
+  user       User    @relation(fields: [user_id], references: [id])
+  product    Product @relation(fields: [product_id], references: [id])
+}
