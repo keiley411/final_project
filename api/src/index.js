@@ -5,6 +5,7 @@ import session from "express-session";
 import product_router from "./Routes/products_router.js";
 import users_router from "./Routes/users_router.js";
 import category_router from "./Routes/category_router.js";
+import auth_router from "./Routes/auth_router.js";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(product_router);
 app.use(users_router);
 app.use(category_router);
+app.use(auth_router)
 
 app.listen(PORT, () =>{
     console.log(`Server is running at http://localhost:${PORT}`)

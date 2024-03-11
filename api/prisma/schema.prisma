@@ -24,6 +24,7 @@ model User {
   user_name      String     @unique
   email          String     @unique
   hashedPassword String
+  role           String     @default("user")
   payments       Payment[]
   shipments      Shipment[]
   orders         Order[]
