@@ -1,0 +1,17 @@
+.favcomponent{
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 5px;
+
+    button{
+        color: rgb(255, 255, 0);
+        font-size: x-large;
+        border: none;
+        background: none;
+        outline: none;
+        padding: 0;
+        margin: 0;
+
+    }
+}

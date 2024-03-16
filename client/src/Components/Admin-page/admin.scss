@@ -1,0 +1,16 @@
+.product{
+
+    .btns{
+        row-gap: 10px;
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    input {
+        height: 3em;
+    }
+}

@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  padding: 0;
+  margin: 10px;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  .nav1 {
+    ul {
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+      list-style: none;
+      gap: 20px;
+
+      li a {
+        text-decoration: none;
+      }
+    }
+  }
+  .nav2 {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    gap: 20px;
+
+    li a {
+      text-decoration: none;
+    }
+  }
+  .nav3{
+    button{
+        border-radius: 1px solid black;
+        border-radius: 10px;
+    }
+  }
+}
+
+.dropdown{
+  .dropdown-content{
+    li{
+      a{
+        text-decoration: none;
+        display: block;
+        padding: 12px 14px;
+      }
+      a:hover{
+        background-color: azure;
+      }
+    }
+  }
+}
