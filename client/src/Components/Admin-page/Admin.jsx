@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SERVER_URL } from "../../constants";
 import CategoryForm from "./CategoryForm/CategoryForm";
 import "./admin.scss";
 import { useGetAllCategoriesQuery } from "../../Features/api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAdminUser, useAuthenticatedUser } from "../../Hooks";
 
 const Admin = () => {
+  const [user, isAdmin] = useAdminUser();
+  const navigate = useNavigate();
+
   const result = useGetAllCategoriesQuery();
+  const [isLoading] = useAuthenticatedUser();
+
   if (result.isLoading) {
     return <div>Loading...</div>;
   }
-
+  if (!isAdmin) {
+    return navigate("/");
+  }
   if (result.isError) {
     return (
       <div className="category-form-component">

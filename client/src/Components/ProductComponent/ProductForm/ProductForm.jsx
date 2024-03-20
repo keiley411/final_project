@@ -1,20 +1,53 @@
 import React, { useState } from "react";
 import FileInput from "../../Shared/FileInput";
-import { useFormState } from "../../../Hooks";
-import { useAddProductMutation } from "../../../Features/api";
+import {
+  useAdminUser,
+  useAuthenticatedUser,
+  useFormState,
+} from "../../../Hooks";
+import {
+  useAddProductMutation,
+  useUpdateProductMutation,
+} from "../../../Features/api";
+import { SERVER_URL } from "../../../constants";
+import Caution from "../../IconComponent/Caution";
 
-const ProductForm = () => {
+const ProductForm = ({ category_id, initial_data, isEditing }) => {
+  const [user, isAdmin] = useAdminUser(true);
+  console.log({ user, isAdmin });
   const [addProduct, result] = useAddProductMutation();
-  const [filePath, setFilePath] = useState();
-  const [data, handleChange, reset] = useFormState({
-    name: "",
-    description: "",
-    price: 0,
-  });
+  const [updateProduct, updateResult] = useUpdateProductMutation();
+
+  const [imagePath, setImagePath] = useState();
+  const [data, handleChange, reset] = useFormState(
+    initial_data
+      ? initial_data
+      : {
+          name: "",
+          description: "",
+          price: 0,
+        }
+  );
+
   const handleSubmit = async (event) => {
     console.log(data);
     event.preventDefault();
-    addProduct({ image_url: filePath, ...data });
+    const newProduct = {
+      ...data,
+      image_url: imagePath,
+      category: {
+        connect: {
+          id: category_id,
+        },
+      },
+    };
+    if (isEditing) {
+      updateProduct(category_id, newProduct);
+      return;
+    } else {
+      addProduct(newProduct);
+    }
+    reset();
   };
   const handleFileSelect = async (filePath) => {
     console.log("filepath ", filePath);
@@ -26,50 +59,61 @@ const ProductForm = () => {
   }
 
   if (result.isError) {
+    console.error(result.error);
     return (
-      <div className="product-form-component">
-        {" "}
+      <div>
         <p style={{ color: "red" }}>
           <Caution />
-          {result.error}
         </p>
       </div>
     );
   }
+
   return (
     <div className="product-form-component">
       {imagePath && (
         <img
           width={200}
           height={200}
-          src={`${SERVER_URL}/${imagePath}`}
+          src={`${SERVER_URL}/${
+            imagePath ? imagePath : initial_data.image_url
+          }`}
           alt="productPreview"
         />
       )}
       <form onSubmit={handleSubmit} className="product-form">
-        <input
-          type="text"
-          name="name"
-          value={data.name}
-          required
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="description"
-          value={data.description}
-          required
-          onChange={handleChange}
-        />
-        <input
-          type="number"
-          name="price"
-          value={data.price}
-          required
-          onChange={handleChange}
-        />
+        <label htmlFor="name">
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={data.name}
+            required
+            onChange={handleChange}
+          />
+        </label>
+        <label htmlFor="description">
+          Description
+          <input
+            type="text"
+            name="description"
+            value={data.description}
+            required
+            onChange={handleChange}
+          />
+        </label>
+        <label htmlFor="price">
+          Price
+          <input
+            type="number"
+            name="price"
+            value={data.price}
+            required
+            onChange={handleChange}
+          />
+        </label>
         <FileInput onFileSelect={handleFileSelect} />
-        <button>Add product</button>
+        <button>{isEditing ? "Update Product" : "Add product"}</button>
       </form>
     </div>
   );

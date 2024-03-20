@@ -38,6 +38,9 @@ const categoryId = async (req, res) => {
       where: {
         id: req.params.categoryid,
       },
+      include: {
+        products: true
+      }
     });
 
     if (category) {

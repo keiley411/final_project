@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import DarkModeToggle from "./DarkModeToggle";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Category from "../CategoryComponent/Category_list";
@@ -6,21 +6,14 @@ import "./Home_page.scss";
 import Search from "../SearchComponent/Search";
 import Category_list from "../CategoryComponent/Category_list";
 import { useLogoutUserMutation, useVerifyTokenQuery } from "../../Features/api";
+import { useAuthenticatedUser } from "../../Hooks";
+import AuthContext from "../../Context/Auth/AuthContext";
+import CartIcon from "../IconComponent/CartIcon";
+import Favourite from "../IconComponent/Favourite";
 
 const Home_page = () => {
-  // Define toggleDropdown function directly within Home_page component
-
-  const {
-    data: user,
-    error,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useVerifyTokenQuery();
-  const [
-    logoutUser,
-    result
-  ] = useLogoutUserMutation()
+  const { logoutUser } = useContext(AuthContext);
+  const [user, isLoading] = useAuthenticatedUser();
 
   const navigate = useNavigate();
 
@@ -32,12 +25,11 @@ const Home_page = () => {
     navigate("/sign");
   };
 
-  const handleLogout = async () => {
-    console.log('Logout User');
+  const handleLogout = () => {
+    console.log("Logout User");
     logoutUser();
-  }
+  };
 
-  console.log('User ', user, ' error ', error, ' isLoading ', isLoading)
   return (
     <>
       <div className="navbar">
@@ -64,9 +56,7 @@ const Home_page = () => {
             </li>
           </ul>
         </div>
-        {/* <div className="cat">
-          <Category />
-        </div> */}
+
         <div className="nav2">
           <Search />
         </div>
@@ -82,13 +72,15 @@ const Home_page = () => {
             </>
           ) : (
             <>
-            <img src={user.image_url} alt={`${user.user_name} avatar`} />
-            <button onClick={handleLogout} className="header-btn">
-              Logout
-            </button>
+              <img src={user.image_url} alt={`${user.user_name} avatar`} />
+              <button onClick={handleLogout} className="header-btn">
+                Logout
+              </button>
             </>
           )}
         </div>
+        <Favourite width={25} height={25} />
+        <CartIcon width={25} height={25}/>
         <DarkModeToggle />
       </div>
       <div className="main">

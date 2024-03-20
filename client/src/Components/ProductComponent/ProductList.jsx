@@ -1,7 +1,7 @@
 import React from 'react'
 import { useGetAllProductsQuery } from '../../Features/api'
 import Caution from '../IconComponent/Caution'
-import Product from '../Product'
+import Product from './Product'
 const ProductList = () => {
     const result = useGetAllProductsQuery()
 
@@ -20,6 +20,7 @@ const ProductList = () => {
           </div>
         );
       }
+      console.log(result)
   return (
     <div>
         {result.data.map((product)=>{

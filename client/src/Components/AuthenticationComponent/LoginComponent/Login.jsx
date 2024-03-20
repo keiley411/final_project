@@ -1,30 +1,29 @@
-import React, { useState } from "react";
-import { SERVER_URL } from "../../../constants";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormState } from "../../../Hooks";
 import "./Login.scss";
-import { useLoginUserMutation } from "../../../Features/api";
+import AuthContext from "../../../Context/Auth/AuthContext";
+
 const Login = () => {
   const [data, handleChange, reset] = useFormState({
     user_name: "",
     password: "",
   });
-  console.log(data);
+
   const navigate = useNavigate();
-  const [loginUser, result] = useLoginUserMutation();
+  const {isLoading, loginUser} = useContext(AuthContext)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     loginUser(data)
-      .unwrap()
-      .then((response) => {
+      .then(() => {
         reset();
         return navigate("/");
       })
       .catch(console.error);
   };
 
-  if (result.isLoading) {
+  if (isLoading) {
     return <div>Loading ... </div>;
   }
   return (

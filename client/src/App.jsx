@@ -8,18 +8,20 @@ import Category from "./Components/CategoryComponent/Category_list";
 import Admin from "./Components/Admin-page/Admin";
 import { Contact } from "./Components/ContactComponent/Contact";
 import Category_page from "./Components/CategoryComponent/Category_page";
-import Product from "./Components/ProductComponent/Product";
+import ProductList from "./Components/ProductComponent/ProductList";
+import CategoryProducts from "./Components/Admin-page/CategoryProducts/CategoryProducts";
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home_page />}>
-          <Route path="/" element={<Product />} />
+          <Route path="/" element={<ProductList />} />
           <Route path="/category/:category_name" element={<Category_page />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/categories/:category_id" element={<Category />} />
+          <Route path="/admin/categories/:category_id" element={<CategoryProducts />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/categories/:category_id" element={<CategoryProducts/>} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/sign" element={<Signup />} />

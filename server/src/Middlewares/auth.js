@@ -11,7 +11,7 @@ const generateToken = (user_id) => {
     id: user_id,
   };
   const expiresIn = "1h";
-  return jwt.sign(payload, SECRET_KEY, { expiresIn });
+  return jwt.sign(payload, SECRET_KEY, { expiresIn: 60 * 60  });
 };
 
 // verify token with jwt.verify

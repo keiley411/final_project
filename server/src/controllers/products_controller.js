@@ -21,7 +21,7 @@ const checkProducts = async (req, res) => {
 }
 const allProducts = async (req, res) => {
     const products = await prisma.product.findMany();
-    res.send(products);
+    res.send({status: 'success', products});
   }
 
   const newProduct =async (req, res) => {
@@ -40,6 +40,7 @@ const allProducts = async (req, res) => {
           category_id: req.params.category_id,
         },
       });
+      console.log(products)
       if (products) {
         res.send({ status: "success", products });
       } else {
@@ -69,6 +70,7 @@ const allProducts = async (req, res) => {
 
   const updateProduct = async (req, res) => {
     const updatedProduct = req.body;
+    console.log(req.params, updatedProduct)
     try {
       const product = await prisma.product.update({
         where: {
@@ -78,11 +80,13 @@ const allProducts = async (req, res) => {
       });
       res.send({ status: "success", product });
     } catch (error) {
+      console.error(error)
       res.status(500).send({ status: "fail", message: "internal server error" });
     }
   }
 
   const deleteProduct =  async (req, res) => {
+    console.log('Product Id ', req.params)
     try {
       const product = await prisma.product.delete({
         where: {
@@ -91,6 +95,7 @@ const allProducts = async (req, res) => {
       });
       res.send({ status: "success", product });
     } catch (error) {
+      console.error(error)
       res.status(500).send({ status: "fail", message: "internal server error" });
     }
   }

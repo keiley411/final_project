@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useVerifyTokenQuery } from "./Features/api";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "./Context/Auth/AuthContext";
 
 export const useFormState = (formData) => {
   const [data, setData] = useState(formData);
@@ -15,4 +18,32 @@ export const useFormState = (formData) => {
   };
 
   return [data, handleChange, reset];
+};
+
+export const useAuthenticatedUser = (isLogin = false) => {
+  const {user, isLoading,verifyToken} = useContext(AuthContext)
+  // const navigate = useNavigate();
+
+  useEffect(() => {
+    verifyToken()
+    // if (isLogin && result.isError) {
+    //   return navigate("/login");
+    // }
+  }, []);
+
+  return [user, isLoading];
+};
+
+export const useAdminUser = () => {
+  const [user, isLoading] = useAuthenticatedUser();
+
+  if(isLoading) {
+    return [null, false]
+  }
+
+  if(!user){
+    return [null, false]
+  }
+
+  return [user,  user.role === "admin"]
 };

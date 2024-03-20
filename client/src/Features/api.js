@@ -28,6 +28,7 @@ const api = createApi({
     }),
     verifyToken: builder.query({
       query: () => "/verifyToken",
+      keepUnusedDataFor: 60 * 60,
       provideTags: [{ type: "Auth", id: "verifyToken" }],
       invalidateTags: (result, error) => {
         if (error) {
@@ -69,6 +70,25 @@ const api = createApi({
       transformResponse: (response) => response.categories,
       transformErrorResponse: (response) => response.data.message,
     }),
+    getCategoryById: builder.query({
+      query: (category_id) => {
+        return `/category/${category_id}`
+      },
+      provideTags: (result, error) => {
+        if(result ) {
+          return [{type: "Category", id: result.id}]
+        }
+        return [{type: "Category", id: "LIST"}]
+      },
+      invalidatesTags: (result, error) => {
+        if(error) {
+          return [{type: "Category", id: "LIST"}]
+        }
+        return [{type: "Category", id: "LIST"}, {type: "Category", id: result.id}]
+      },
+      transformResponse: (response) => response.category,
+      transformErrorResponse: (response) => response.data.message,
+    }),
     addCategory: builder.mutation({
       query: (data) => ({
         url: "/category/newCategory",
@@ -89,12 +109,41 @@ const api = createApi({
             ]
           : [{ type: "Category", id: "LIST" }],
     }),
+    updateCategory: builder.mutation({
+      query: (data) => ({
+        url: `/category/${data.id}`,
+        method: "PUT",
+        body: data
+      }),
+      transformResponse: (response) => response.category,
+      transformErrorResponse: (response) => response.data.message,
+    }),
+    deleteCategory: builder.mutation({
+      query: (categoryid) => ({
+        url: `/category/${categoryid}`,
+        method: "DElETE",
+      }),
+      transformResponse: (response) => response.category,
+      transformErrorResponse: (response) => response.data.message,
+    }),
+    
     addProduct: builder.mutation({
       query: (data) => ({
         url: "/products",
         method: "POST",
         body: data,
       }),
+      provideTags: (result, error) =>
+        result
+          ? [{ type: "Products", id: result.id }]
+          : [{ type: "Products", id: "LIST" }],
+      invalidatesTags: (result, error) =>
+        result
+          ? [
+              { type: "Products", id: result.id },
+              { type: "Products", id: "LIST" },
+            ]
+          : [{ type: "Products", id: "LIST" }],
       transformResponse: (response) => response.product,
       transformErrorResponse: (response) => response.data.message,
     }),
@@ -116,14 +165,17 @@ const api = createApi({
       invalidatesTags: (result, error) => {
         if (error) {
           return [{ type: "Product", id: "LIST" }];
-        }
+        } 
       },
-      transformResponse: (response) => response.products,
+      transformResponse: (response) => {
+        console.log(response);
+        return response.products;
+      },
       transformErrorResponse: (response) => response.data.message,
     }),
-    getProductsCategory: builder.query({
-      query: (category_name) => {
-        return `/products/categories/${category_name}`;
+    getProductsByCategory: builder.query({
+      query: (category_id) => {
+        return `/products/categories/${category_id}`;
       },
       provideTags: (result, error) => {
         return result
@@ -137,13 +189,54 @@ const api = createApi({
           : [{ type: "Product", id: "LIST" }];
       },
       invalidatesTags: (result, error) => {
+        console.log('hello')
         if (error) {
           return [{ type: "Product", id: "LIST" }];
         }
+        return ["Products"]
       },
-      transformResponse: (response) => response.categories,
+      transformResponse: (response) => response.products,
       transformErrorResponse: (response) => response.data.message,
     }),
+    updateProduct: builder.mutation({
+      query: ({data}) => ({
+        url: `/products/${data.id}`,
+        method: "PUT",
+        body: data
+      }),
+      provideTags: (result, error) =>
+        result
+          ? [{ type: "Products", id: result.id }]
+          : [{ type: "Products", id: "LIST" }],
+      invalidatesTags: (result, error) =>
+        result
+          ? [
+              { type: "Products", id: result.id },
+              { type: "Products", id: "LIST" },
+            ]
+          : [{ type: "Products", id: "LIST" }],
+      transformResponse: (response) => response.product,
+      transformErrorResponse: (response) => response.data.message,
+    }),
+    deleteProduct: builder.mutation({
+      query: (product_id) => ({
+        url: `/products/${product_id}`,
+        method: "DElETE",
+      }),    
+      provideTags: (result, error) =>
+        result
+          ? [{ type: "Products", id: result.id }]
+          : [{ type: "Products", id: "LIST" }],
+      invalidatesTags: (result, error) =>
+        result
+          ? [
+              { type: "Products", id: result.id },
+              { type: "Products", id: "LIST" },
+            ]
+          : [{ type: "Products", id: "LIST" }],
+      transformResponse: (response) => response.product,
+      transformErrorResponse: (response) => response.data.message,
+    })
   }),
 });
 
@@ -152,10 +245,17 @@ export const {
   useRegisterUserMutation,
   useVerifyTokenQuery,
   useLogoutUserMutation,
+
+  useGetCategoryByIdQuery,
   useGetAllCategoriesQuery,
   useAddCategoryMutation,
+  useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
+
   useGetAllProductsQuery,
-  useGetProductsCategoryQuery,
-  useAddProductMutation
+  useGetProductsByCategoryQuery,
+  useAddProductMutation,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
 } = api;
 export default api;

@@ -8,7 +8,6 @@ const protectedRoute = async (req, res, next) => {
     }
     try {
         const data = await verifyToken(auth_token);
-        console.log('Token Data: ' + data)
         const user = await prisma.user.findUnique({
             where: {
                 id: data.id

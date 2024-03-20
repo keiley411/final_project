@@ -18,7 +18,16 @@
   .group {
     margin-bottom: 20px;
   }
-  
+  .group1{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  .group2{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
   .group label {
     display: block;
     margin-bottom: 10px;
@@ -28,7 +37,7 @@
   .group input[type="text"],
   .group input[type="email"],
   .group textarea {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     border: 1px solid #d2cdcd;
     border-radius: 10px;
