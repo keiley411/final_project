@@ -1,6 +1,5 @@
 import React from "react";
-
-const SERVER_URL = "http://localhost:3000";
+import { SERVER_URL } from "../../constants";
 
 const FileInput = ({ onFileSelect}) => {
 

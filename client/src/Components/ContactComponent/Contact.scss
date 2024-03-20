@@ -1,0 +1,57 @@
+.form-container {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    padding: 40px;
+    border: 1px solid #bea3a3;
+    border-radius: 10px;
+    background-color: #f7f4f4;
+
+    h1{
+      font-size: 20px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-weight: 600,
+      
+      }
+  }
+  
+  .group {
+    margin-bottom: 20px;
+  }
+  
+  .group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .group input[type="text"],
+  .group input[type="email"],
+  .group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d2cdcd;
+    border-radius: 10px;
+  }
+  
+  .group textarea {
+    height: 100px; 
+    
+  }
+
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  

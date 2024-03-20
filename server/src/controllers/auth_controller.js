@@ -28,13 +28,15 @@ const userRegister = async (req, res) => {
 
     const hashedPassword = await generateHashedPassword(password);
 
-    await prisma.user.create({
-      data: {
-        user_name: user_name,
-        password: hashedPassword,
-        email: email,
-      },
-    });
+    console.log(
+      await prisma.user.create({
+        data: {
+          user_name: user_name,
+          hashedPassword: hashedPassword,
+          email: email,
+        },
+      })
+    );
 
     res
       .status(200)
@@ -44,6 +46,14 @@ const userRegister = async (req, res) => {
     res.status(500).send({ status: "error", message: "internal server error" });
   }
 };
+
+const verifyToken = async (req, res) => {
+  return res
+    .status(200)
+    .send({ status: "success", user: req.session.user })
+    .end();
+};
+
 const userLogin = async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -51,6 +61,7 @@ const userLogin = async (req, res) => {
       return res.status(400).send({ status: "fail", message: errors.array() });
     }
     const { user_name, password } = req.body;
+    console.log(user_name, password);
     const user = await prisma.user.findUnique({
       where: {
         user_name: user_name,
@@ -62,14 +73,12 @@ const userLogin = async (req, res) => {
         .status(401)
         .send({ status: "fail", message: "invalid username" });
     }
-    const match = await comparePassword(password, user.password);
+    const match = await comparePassword(password, user.hashedPassword);
     if (!match) {
-      return res
-        .status(401)
-        .send({
-          status: "fail",
-          message: "invalid password stop guessing password",
-        });
+      return res.status(401).send({
+        status: "fail",
+        message: "invalid password stop guessing password",
+      });
     }
 
     const token = generateToken(user.id);
@@ -77,9 +86,18 @@ const userLogin = async (req, res) => {
     res.cookie("auth_token", token);
     res.status(201).send({ status: "success", token });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ status: "fail", message: error.message });
   }
 };
-const AuthController = { userLogin, userRegister };
+
+const userLogout = async (req, res) => {
+  req.session.user = null;
+  res.clearCookie("auth_token");
+  return res.send({status: "success"}).end()
+}
+
+
+const AuthController = { userLogin, userLogout, userRegister, verifyToken };
 
 export default AuthController;

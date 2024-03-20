@@ -1,15 +1,29 @@
 import React, { useState } from "react";
-import "./Home_page.scss";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import DarkModeToggle from "./DarkModeToggle";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import Category from "../CategoryComponent/Category";
+import Category from "../CategoryComponent/Category_list";
+import "./Home_page.scss";
+import Search from "../SearchComponent/Search";
+import Category_list from "../CategoryComponent/Category_list";
+import { useLogoutUserMutation, useVerifyTokenQuery } from "../../Features/api";
 
 const Home_page = () => {
   // Define toggleDropdown function directly within Home_page component
-  
+
+  const {
+    data: user,
+    error,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useVerifyTokenQuery();
+  const [
+    logoutUser,
+    result
+  ] = useLogoutUserMutation()
+
   const navigate = useNavigate();
+
   const loginPage = () => {
     navigate("/login");
   };
@@ -17,39 +31,63 @@ const Home_page = () => {
   const signPage = () => {
     navigate("/sign");
   };
+
+  const handleLogout = async () => {
+    console.log('Logout User');
+    logoutUser();
+  }
+
+  console.log('User ', user, ' error ', error, ' isLoading ', isLoading)
   return (
     <>
       <div className="navbar">
         <div className="nav1">
           <ul>
             <li>
-              <a href="/">Home</a>
+              <Link to={"/"}>Home</Link>
             </li>
             <li>
-              <a href="/about">About</a>
+              <Link to={"/about"}>About</Link>
             </li>
             <li>
-              <a href="/contact">Contact</a>
+              <Link to={"/contact"}>Contact</Link>
             </li>
             <li>
-              <Link to={'/category'}>Category</Link>
+              <Link to={"/admin"}>Admin</Link>
+            </li>
+            <li>
+              <Link to={"/category"} className="category-link">
+                <p className="category-p"> Category</p>
+
+                <Category_list className="category-component" />
+              </Link>
             </li>
           </ul>
         </div>
+        {/* <div className="cat">
+          <Category />
+        </div> */}
         <div className="nav2">
-          <li>
-            <a href="/admin">Admin</a>
-          </li>
-
-          <input
-            type="button"
-            value="search"
-            style={{ border: "1px solid black", borderRadius: "10px" }}
-          />
+          <Search />
         </div>
-        <div>
-          <button onClick={loginPage}>Login</button>
-          <button onClick={signPage}>SignUp</button>
+        <div className="header-actions">
+          {!user ? (
+            <>
+              <button onClick={loginPage} className="header-btn">
+                Login
+              </button>
+              <button onClick={signPage} className="header-btn">
+                SignUp
+              </button>
+            </>
+          ) : (
+            <>
+            <img src={user.image_url} alt={`${user.user_name} avatar`} />
+            <button onClick={handleLogout} className="header-btn">
+              Logout
+            </button>
+            </>
+          )}
         </div>
         <DarkModeToggle />
       </div>

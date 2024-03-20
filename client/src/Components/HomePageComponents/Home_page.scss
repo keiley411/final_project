@@ -1,59 +1,80 @@
-body {
-  margin: 0;
-  padding: 0;
-  margin: 10px;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+}
 
-  .nav1 {
-    ul {
-      display: flex;
-      justify-content: space-between;
-      align-content: center;
-      list-style: none;
-      gap: 20px;
+.navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
-      li a {
-        text-decoration: none;
-      }
-    }
+.navbar ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.main {
+  padding: 20px;
+}
+.header-actions{
+  display: flex;
+  gap: 10px;
+}
+
+.header-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.header-btn:hover {
+  background-color: #0056b3;
+}
+
+input[type="button"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type="button"]:hover {
+  background-color: #f0f0f0;
+}
+
+.category-link {
+  position: relative;
+  .category-component {
+    display: none;
+    position: absolute;
+    width: 140px;
   }
-  .nav2 {
+  .category-component :hover {
     display: flex;
-    justify-content: space-between;
-    list-style: none;
-    gap: 20px;
-
-    li a {
-      text-decoration: none;
-    }
-  }
-  .nav3{
-    button{
-        border-radius: 1px solid black;
-        border-radius: 10px;
-    }
   }
 }
 
-.dropdown{
-  .dropdown-content{
-    li{
-      a{
-        text-decoration: none;
-        display: block;
-        padding: 12px 14px;
-      }
-      a:hover{
-        background-color: azure;
-      }
-    }
+.category-p{
+  margin: 0;
+}
+.category-link:hover{
+  .category-component {
+    display: flex !important;
+    
   }
 }

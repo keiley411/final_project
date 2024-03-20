@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { changeColorScheme, retriveTheme } from "./index.js";
 import SunIcon from "../IconComponent/SunIcon";
 import MoonIcon from "../IconComponent/MoonIcon";
-
+import "./DarkMode.scss"
 const DarkModeToggle = () => {
   const [state, setState] = useState(true);
   const handleClick = () => {

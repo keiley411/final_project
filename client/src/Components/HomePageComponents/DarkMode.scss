@@ -1,3 +1,21 @@
+
 .dark-mode {
-    color: white;
-}
+    border: none;
+    background-color: rgb(43, 113, 112);
+    cursor: pointer;
+    color: rgb(247, 245, 245);
+  }
+  
+  .dark-mode:focus {
+    outline: none;
+  }
+  
+  .dark-mode svg {
+    fill: #322b2b; 
+    transition: fill 0.3s ease;
+  }
+  
+  .dark-mode:hover svg {
+    fill: #7fa0c4; 
+  }
+  

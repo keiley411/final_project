@@ -15,10 +15,17 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-// PORT = 3000;
-app.use(cors());
+
+app.use(cors({
+  origin:" http://localhost:5173",
+  methods:["GET", "POST"],
+  credentials:true
+}));
 app.use(cookieParser());
-app.use(session({ secret: "valid" }));
+app.use(session({ secret: "valid",
+resave: false,
+saveUninitialized:false
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/public", express.static("public"))

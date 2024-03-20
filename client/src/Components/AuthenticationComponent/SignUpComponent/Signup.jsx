@@ -1,22 +1,33 @@
 import React, { useState } from "react";
 import { useFormState } from "../../../Hooks";
-
+import { Link, useNavigate } from "react-router-dom";
+import "./Signup.scss"
+import { SERVER_URL } from "../../../constants";
+import { useRegisterUserMutation } from "../../../Features/api";
 const Signup = () => {
-  const [data, handleChange] = useFormState({
+  const [data, handleChange,reset] = useFormState({
     user_name: "",
     email: "",
     password: "",
     confirm_password: "",
   });
-
-  const handleSubmit = (event) => {
+  const [registerUser, result] = useRegisterUserMutation()
+const navigate = useNavigate()
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    console.log(data);
+    registerUser(data)
+    .unwrap()
+    .then((response) => {
+      reset();
+      return navigate("/login");
+    })
+    .catch(console.error);
   };
+
   return (
     <>
-      <div>
-        <form onSubmit={handleSubmit}>
+      <div className="signup-container">
+        <form onSubmit={handleSubmit} className="signup-form">
           <label>
             Username:{" "}
             <input
@@ -56,7 +67,13 @@ const Signup = () => {
               required
             />
           </label>
-          <button type="submit">Submit</button>
+          <button type="submit">Sign Up</button>
+          <div className="login-link">
+            {" "}
+            <Link to="/login">
+              <button>Login</button>
+            </Link>
+          </div>
         </form>
       </div>
     </>

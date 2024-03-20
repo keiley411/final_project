@@ -2,33 +2,35 @@ import React, { useState } from "react";
 import { SERVER_URL } from "../../../constants";
 import { useNavigate } from "react-router-dom";
 import { useFormState } from "../../../Hooks";
-
+import "./Login.scss";
+import { useLoginUserMutation } from "../../../Features/api";
 const Login = () => {
-  const [data, handleChange] = useFormState({
+  const [data, handleChange, reset] = useFormState({
     user_name: "",
     password: "",
   });
+  console.log(data);
   const navigate = useNavigate();
+  const [loginUser, result] = useLoginUserMutation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch(`${SERVER_URL}/login`, {
-      method: "post",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const responseData = await response.json();
-    if (responseData.status === "success") {
-      return navigate("/");
-    }
+    loginUser(data)
+      .unwrap()
+      .then((response) => {
+        reset();
+        return navigate("/");
+      })
+      .catch(console.error);
   };
 
+  if (result.isLoading) {
+    return <div>Loading ... </div>;
+  }
   return (
     <>
-      <div>
-        <form onSubmit={handleSubmit}>
+      <div className="login-container">
+        <form onSubmit={handleSubmit} className="login-form">
           <label>
             Username:{" "}
             <input

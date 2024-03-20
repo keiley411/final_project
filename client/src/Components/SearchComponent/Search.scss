@@ -1,0 +1,21 @@
+.search-filter {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-filter input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-right: 10px;
+   
+  }
+  
+  .search-filter select {
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    
+  }
+  

@@ -13,6 +13,7 @@ const generateToken = (user_id) => {
   const expiresIn = "1h";
   return jwt.sign(payload, SECRET_KEY, { expiresIn });
 };
+
 // verify token with jwt.verify
 const verifyToken = (token) => {
   try {

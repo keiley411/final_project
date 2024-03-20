@@ -4,22 +4,25 @@ import Home_page from "./Components/HomePageComponents/Home_page";
 import Login from "./Components/AuthenticationComponent/LoginComponent/Login";
 import Signup from "./Components/AuthenticationComponent/SignUpComponent/Signup";
 import NotFound from "./Components/NotFoundComponent/NotFound";
-import Category from "./Components/CategoryComponent/Category";
+import Category from "./Components/CategoryComponent/Category_list";
 import Admin from "./Components/Admin-page/Admin";
 import { Contact } from "./Components/ContactComponent/Contact";
+import Category_page from "./Components/CategoryComponent/Category_page";
+import Product from "./Components/ProductComponent/Product";
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home_page />}>
-          <Route path="category" element={<Category />} />
+          <Route path="/" element={<Product />} />
+          <Route path="/category/:category_name" element={<Category_page />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/admin" element={<Admin/>} />
-          <Route path="/contact" element={<Contact/>}/>
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/categories/:category_id" element={<Category />} />
+          <Route path="/contact" element={<Contact />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/sign" element={<Signup />} />
-      
       </Routes>
     </Router>
   );
