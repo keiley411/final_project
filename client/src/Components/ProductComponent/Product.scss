@@ -1,1 +1,30 @@
-button
+.product-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  border: none;
+
+  .icon-btn {
+    border: none;
+    background:none;
+    color: grey;
+    
+    font-size: 16px;
+    cursor: pointer;
+  }
+}
+.product-info{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    p{
+        text-align: center;
+        margin: 5px;
+    }
+   button{
+    border: 1px solid black;;
+    border-radius: 8px;
+    margin: auto;
+    padding: 10px;
+   }
+}

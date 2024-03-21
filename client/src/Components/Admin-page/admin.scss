@@ -17,3 +17,8 @@
   overflow-x: scroll;
   scrollbar-width: 1px !important;
 }
+.category-actions{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}

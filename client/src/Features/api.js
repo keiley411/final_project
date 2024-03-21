@@ -199,7 +199,7 @@ const api = createApi({
       transformErrorResponse: (response) => response.data.message,
     }),
     updateProduct: builder.mutation({
-      query: ({data}) => ({
+      query: (data) => ({
         url: `/products/${data.id}`,
         method: "PUT",
         body: data

@@ -5,7 +5,7 @@ import Caution from "../../IconComponent/Caution";
 import Product from "../../ProductComponent/Product";
 import ProductForm from "../../ProductComponent/ProductForm/ProductForm";
 
-const CategoryProducts = () => {
+const AdminCategory = () => {
   const { category_id } = useParams();
   console.log({category_id})
   const result = useGetProductsByCategoryQuery(category_id);
@@ -18,6 +18,7 @@ const CategoryProducts = () => {
   if (result.isError || categoryResult.isError)  {
     return (
       <div className="product-form-component">
+        {" "}
         <p style={{ color: "red" }}>
           <Caution />
           {result.error ? result.error : categoryResult.error}
@@ -32,6 +33,7 @@ const CategoryProducts = () => {
   return (
     <div>
       <h1>{categoryResult.data.title}</h1>
+      <ProductForm category_id={category_id}/>
       {categoryResult.data.products.map((product)=>{
             return(<Product product={product} key={product.id}/>)
         })}
@@ -39,4 +41,4 @@ const CategoryProducts = () => {
   );
 };
 
-export default CategoryProducts;
+export default AdminCategory;

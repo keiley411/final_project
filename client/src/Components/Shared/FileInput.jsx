@@ -1,7 +1,6 @@
 import React from "react";
 import { SERVER_URL } from "../../constants";
-
-const FileInput = ({ onFileSelect}) => {
+const FileInput = ({ onFileSelect, required}) => {
 
   const handleFileChange = async (event) => {
     const categoryImg = event.target.files[0];
@@ -23,11 +22,11 @@ const FileInput = ({ onFileSelect}) => {
   };
 
   return (
-    <div>
+    <div className="file"> 
       <input
         type="file"
         name="category_img"
-        required
+        required={required}
         onChange={handleFileChange}
       />
     </div>

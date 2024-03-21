@@ -5,7 +5,7 @@ import { useAdminUser } from "../../Hooks";
 import { SERVER_URL } from "../../constants";
 import { useUpdateProductMutation, useDeleteProductMutation } from "../../Features/api";
 import Overlay from "../Overlay/Overlay";
-
+import "./Product.scss"
 import ProductForm from "./ProductForm/ProductForm";
 
 const Product = ({ product }) => {
@@ -30,13 +30,13 @@ const Product = ({ product }) => {
     </Overlay>
 }
     <div className="product">
-      <div>
+      <div className="product-img">
         <img src={`${SERVER_URL}/${product.image_url}`} alt="" width={200} height={200} />
         <div className="product-actions">
-          <button>
+          <button className="icon-btn">
             <Favourite width={25} height={25} />
           </button>
-          <button>
+          <button className="icon-btn">
             <CartIcon color={"black"} width={25} height={25} />
           </button>
         </div>

@@ -9,14 +9,15 @@ import {
   useAddProductMutation,
   useUpdateProductMutation,
 } from "../../../Features/api";
+
 import { SERVER_URL } from "../../../constants";
 import Caution from "../../IconComponent/Caution";
 
 const ProductForm = ({ category_id, initial_data, isEditing }) => {
   const [user, isAdmin] = useAdminUser(true);
-  console.log({ user, isAdmin });
   const [addProduct, result] = useAddProductMutation();
   const [updateProduct, updateResult] = useUpdateProductMutation();
+
 
   const [imagePath, setImagePath] = useState();
   const [data, handleChange, reset] = useFormState(
@@ -42,7 +43,12 @@ const ProductForm = ({ category_id, initial_data, isEditing }) => {
       },
     };
     if (isEditing) {
-      updateProduct(category_id, newProduct);
+      delete newProduct.category_id;
+      if(!newProduct.image_url) {
+        newProduct.image_url = initial_data.image_url;
+      }
+      updateProduct(newProduct);
+      console.log(newProduct)
       return;
     } else {
       addProduct(newProduct);
@@ -50,7 +56,6 @@ const ProductForm = ({ category_id, initial_data, isEditing }) => {
     reset();
   };
   const handleFileSelect = async (filePath) => {
-    console.log("filepath ", filePath);
     setImagePath(filePath);
   };
 
@@ -71,12 +76,12 @@ const ProductForm = ({ category_id, initial_data, isEditing }) => {
 
   return (
     <div className="product-form-component">
-      {imagePath && (
+      {(data.image_url || imagePath) && (
         <img
           width={200}
           height={200}
           src={`${SERVER_URL}/${
-            imagePath ? imagePath : initial_data.image_url
+           imagePath ? imagePath : data.image_url
           }`}
           alt="productPreview"
         />

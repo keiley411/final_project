@@ -1,0 +1,17 @@
+.lists {
+  display: flex;
+  flex-flow: wrap;
+justify-content: center;
+
+  .category-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    img {
+      width: 300px;
+      height: 250px;
+    }
+  }
+}

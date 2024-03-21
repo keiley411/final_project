@@ -59,6 +59,7 @@ const Admin = () => {
                 <div className="category-actions">
                   <button
                     className="edit"
+                  
                     onClick={() => handleCategoryEdit(category.id)}
                   >
                     Edit

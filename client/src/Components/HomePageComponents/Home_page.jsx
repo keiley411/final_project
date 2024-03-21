@@ -1,15 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import DarkModeToggle from "./DarkModeToggle";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import Category from "../CategoryComponent/Category_list";
 import "./Home_page.scss";
 import Search from "../SearchComponent/Search";
-import Category_list from "../CategoryComponent/Category_list";
-import { useLogoutUserMutation, useVerifyTokenQuery } from "../../Features/api";
+import Category_Nav from "../CategoryComponent/Category_Nav";
 import { useAuthenticatedUser } from "../../Hooks";
 import AuthContext from "../../Context/Auth/AuthContext";
 import CartIcon from "../IconComponent/CartIcon";
 import Favourite from "../IconComponent/Favourite";
+import Footer from "../FooterComponent/Footer";
 
 const Home_page = () => {
   const { logoutUser } = useContext(AuthContext);
@@ -48,10 +47,10 @@ const Home_page = () => {
               <Link to={"/admin"}>Admin</Link>
             </li>
             <li>
-              <Link to={"/category"} className="category-link">
+              <Link to={"/"} className="category-link">
                 <p className="category-p"> Category</p>
 
-                <Category_list className="category-component" />
+                <Category_Nav className="category-component" />
               </Link>
             </li>
           </ul>
@@ -80,12 +79,13 @@ const Home_page = () => {
           )}
         </div>
         <Favourite width={25} height={25} />
-        <CartIcon width={25} height={25}/>
+        <CartIcon width={25} height={25} />
         <DarkModeToggle />
       </div>
       <div className="main">
         <Outlet />
       </div>
+      <Footer height={40} width={40} />
     </>
   );
 };
