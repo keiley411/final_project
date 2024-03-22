@@ -1,13 +1,16 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useGetCategoryByIdQuery, useGetProductsByCategoryQuery } from "../../../Features/api";
+import {
+  useGetCategoryByIdQuery,
+  useGetProductsByCategoryQuery,
+} from "../../../Features/api";
 import Caution from "../../IconComponent/Caution";
 import Product from "../../ProductComponent/Product";
 import ProductForm from "../../ProductComponent/ProductForm/ProductForm";
-
+import "./Category.scss";
 const CategoryProducts = () => {
   const { category_id } = useParams();
-  console.log({category_id})
+  console.log({ category_id });
   const result = useGetProductsByCategoryQuery(category_id);
   const categoryResult = useGetCategoryByIdQuery(category_id);
 
@@ -15,7 +18,7 @@ const CategoryProducts = () => {
     return <div>Loading...</div>;
   }
 
-  if (result.isError || categoryResult.isError)  {
+  if (result.isError || categoryResult.isError) {
     return (
       <div className="product-form-component">
         <p style={{ color: "red" }}>
@@ -30,11 +33,13 @@ const CategoryProducts = () => {
   // result.refetch()
 
   return (
-    <div>
+    <div className="category-container">
       <h1>{categoryResult.data.title}</h1>
-      {categoryResult.data.products.map((product)=>{
-            return(<Product product={product} key={product.id}/>)
+      <div className="category-products">
+        {categoryResult.data.products.map((product) => {
+          return <Product product={product} key={product.id} />;
         })}
+      </div>
     </div>
   );
 };

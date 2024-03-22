@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import DarkModeToggle from "./DarkModeToggle";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import "./Home_page.scss";
+
 import Search from "../SearchComponent/Search";
 import Category_Nav from "../CategoryComponent/Category_Nav";
 import { useAuthenticatedUser } from "../../Hooks";
@@ -10,6 +10,8 @@ import CartIcon from "../IconComponent/CartIcon";
 import Favourite from "../IconComponent/Favourite";
 import Footer from "../FooterComponent/Footer";
 
+import "./Home_page.scss";
+import Banner from "../BannerComponent/Banner";
 const Home_page = () => {
   const { logoutUser } = useContext(AuthContext);
   const [user, isLoading] = useAuthenticatedUser();
@@ -43,9 +45,11 @@ const Home_page = () => {
             <li>
               <Link to={"/contact"}>Contact</Link>
             </li>
-            <li>
-              <Link to={"/admin"}>Admin</Link>
-            </li>
+            {user && user.role === "admin" && (
+              <li>
+                <Link to={"/admin"}>Admin</Link>
+              </li>
+            )}
             <li>
               <Link to={"/"} className="category-link">
                 <p className="category-p"> Category</p>
@@ -71,13 +75,21 @@ const Home_page = () => {
             </>
           ) : (
             <>
-              <img src={user.image_url} alt={`${user.user_name} avatar`} />
+              <img
+                src={`${
+                  user.image_url
+                    ? user.image_url
+                    : `https://ui-avatars.com/api/?name=${user.user_name}&size=40&rounded=true`
+                }`}
+                alt={`${user.user_name} avatar`}
+              />
               <button onClick={handleLogout} className="header-btn">
                 Logout
               </button>
             </>
           )}
         </div>
+
         <Favourite width={25} height={25} />
         <CartIcon width={25} height={25} />
         <DarkModeToggle />

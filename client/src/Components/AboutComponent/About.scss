@@ -1,0 +1,27 @@
+.about {
+  position: relative;
+  width: 100%;
+//   padding: 1em;
+
+  img {
+    width: 100%;
+  }
+  p {
+    position: absolute;
+    top: 15%;
+    left: 35%;
+    font-size: 6em;
+    color: whitesmoke !important;
+  }
+}
+.info{
+    h3{
+        font-size: 3em;
+        text-align: center !important;
+        color: chocolate;
+        font-family: "Great Vibes", cursive !important;;
+    }
+    p{
+        font-family: "Merienda", cursive;
+    }
+}

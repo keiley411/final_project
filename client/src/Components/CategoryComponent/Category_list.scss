@@ -1,7 +1,8 @@
 .lists {
   display: flex;
   flex-flow: wrap;
-justify-content: center;
+  justify-content: center;
+  padding-top: 10px;
 
   .category-card {
     display: flex;
@@ -9,9 +10,15 @@ justify-content: center;
     justify-content: center;
     align-items: center;
     width: 30%;
+
     img {
-      width: 300px;
-      height: 250px;
+      width: 350px;
+      height: 300px;
+      border-radius: 6px;
     }
   }
+}
+.banner{
+  display: flex;
+  flex-direction: column;
 }

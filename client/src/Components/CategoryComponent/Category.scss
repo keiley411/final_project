@@ -1,20 +1,16 @@
-.dropdown{
+.dropdown {
   border-radius: 10px;
   background-color: rgb(148, 219, 225);
 }
-.dropdown-content{
+.dropdown-content {
   position: relative;
   display: flex;
   flex-direction: column;
- 
 
-
-  li{
+  li {
     margin: 10px;
-   
   }
 }
-
 
 // .button {
 //   background-color: #007bff;

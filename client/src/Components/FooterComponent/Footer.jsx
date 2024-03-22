@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 const Footer = ({ width, height, color }) => {
   return (
-    <>
+  <div className="footer">
       <div className="icons">
         <div className="icon1">
           <svg
@@ -42,7 +42,7 @@ const Footer = ({ width, height, color }) => {
           </svg>
           <div className="detail">
             <h1>Support</h1>
-            <p>We are reachable by Email, SMS,WhatsAp and Calls</p>
+            <p>We are reachable by Email, SMS,WhatsApp and Calls</p>
           </div>
         </div>
         <div className="icon1">
@@ -142,7 +142,7 @@ const Footer = ({ width, height, color }) => {
       <div className="end">
         <p>Copyright@2023 JABARI FURNITURES.ALL RIGHTS RESERVED</p>
       </div>
-    </>
+      </div>
   );
 };
 

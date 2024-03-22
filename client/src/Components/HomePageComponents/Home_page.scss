@@ -26,7 +26,7 @@
 .main {
   padding: 20px;
 }
-.header-actions{
+.header-actions {
   display: flex;
   gap: 10px;
 }
@@ -36,7 +36,7 @@
   padding: 10px;
   border: none;
   border-radius: 10px;
-  background-color: #007bff;
+  background-color: #d8a847;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
@@ -69,16 +69,20 @@ input[type="button"]:hover {
   }
 }
 
-.category-p{
+.category-p {
   margin: 0;
 }
-.category-link:hover{
+.category-link:hover {
   .category-component {
     display: flex !important;
-    
   }
 }
-.main{
+.main {
   min-height: 100vh;
   display: flex;
+}
+
+
+.category-component {
+  z-index: 9000;
 }
