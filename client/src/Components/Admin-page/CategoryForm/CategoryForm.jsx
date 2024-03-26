@@ -22,7 +22,7 @@ const CategoryForm = () => {
   };
 
   const handleFileSelect = async (filePath) => {
-    console.log('filepath ', filePath);
+    console.log("filepath ", filePath);
     setImagePath(filePath);
   };
 

@@ -1,9 +1,88 @@
-import React from 'react'
+import React, { useState , useEffect} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import "./Cart.scss";
+import { cartTotalPriceSelector } from "../../Features/Cart/CartPrice/length";
+import {
+  decrementProduct,
+  incrementProduct,
+  removeFromCart,
+} from "../../Features/Cart/CartSlice";
+import { SERVER_URL } from "../../constants";
 
 const Cart = () => {
-  return (
-    <div>Cart</div>
-  )
-}
+  const cart = useSelector((state) => state.cart);
+  const totalPrice = useSelector(cartTotalPriceSelector);
+  const [addedProduct, setAddedProduct] = useState(null);
+  console.log(cart);
 
-export default Cart
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(cartTotalPriceSelector());
+  }, [cart.products, dispatch]);
+
+  console.log(cart);
+  return (
+    cart.isOpen && (
+      <div className="cart">
+        <div className="cart-main">
+          {cart.products.map((product) => (
+            <div className="cart-product" key={product.id}>
+              <img
+                src={`${SERVER_URL}/${product.image_url}`}
+                alt={`${product.name} image`}
+              />
+
+              <div className="info">
+                <div className="details">
+                  <span className="title">{product.name}</span>
+                  <span className="title">{product.price}</span>
+                </div>
+
+                <div className="actions">
+                  <button
+                    disabled={product.quantity <= 1}
+                    onClick={() =>
+                      dispatch(decrementProduct({ id: product.id }))
+                    }
+                  >
+                    -
+                  </button>
+                  <span className="quantity">{product.quantity}</span>
+                  <button
+                    disabled={product.quantity >= product.stock}
+                    onClick={() =>
+                      dispatch(incrementProduct({ id: product.id }))
+                    }
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <div className="remove-actions">
+                <button
+                  onClick={() => dispatch(removeFromCart({ id: product.id }))}
+                >
+                  Remove From Cart
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="cart-footer">
+          {addedProduct && (
+            <>
+              <p className="product-name">{product.name}</p>
+              <p className="product-price">{product.price}</p>
+            </>
+          )}
+
+          <p className="total-price">Total Price: Ksh.{totalPrice}</p>
+        </div>
+      </div>
+    )
+  );
+};
+
+export default Cart;

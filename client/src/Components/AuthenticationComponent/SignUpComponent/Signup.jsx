@@ -69,8 +69,10 @@ const navigate = useNavigate()
           </label>
           <button type="submit">Sign Up</button>
           <div className="login-link">
+          <p>Already have an account?</p>
             {" "}
             <Link to="/login">
+              
               <button>Login</button>
             </Link>
           </div>

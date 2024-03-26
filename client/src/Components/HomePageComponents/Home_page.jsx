@@ -1,22 +1,24 @@
 import React, { useContext } from "react";
 import DarkModeToggle from "./DarkModeToggle";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-
-import Search from "../SearchComponent/Search";
+// import Search from "../SearchComponent/Search";
 import Category_Nav from "../CategoryComponent/Category_Nav";
 import { useAuthenticatedUser } from "../../Hooks";
 import AuthContext from "../../Context/Auth/AuthContext";
 import CartIcon from "../IconComponent/CartIcon";
 import Favourite from "../IconComponent/Favourite";
 import Footer from "../FooterComponent/Footer";
-
+import Cart from "../CartComponent/Cart";
 import "./Home_page.scss";
-import Banner from "../BannerComponent/Banner";
+import { toggleCart } from "../../Features/Cart/CartSlice";
+import { useDispatch } from "react-redux";
+
 const Home_page = () => {
   const { logoutUser } = useContext(AuthContext);
   const [user, isLoading] = useAuthenticatedUser();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const loginPage = () => {
     navigate("/login");
@@ -30,9 +32,15 @@ const Home_page = () => {
     console.log("Logout User");
     logoutUser();
   };
+  const handleCartOpen = () => {
+    console.log("open cart");
+    dispatch(toggleCart());
+  };
 
   return (
     <>
+      <Cart />
+
       <div className="navbar">
         <div className="nav1">
           <ul>
@@ -60,9 +68,13 @@ const Home_page = () => {
           </ul>
         </div>
 
-        <div className="nav2">
-          <Search />
-        </div>
+        {/* <div className="nav2">
+          <Search
+            handleSearch={(data) => {
+              console.log(data);
+            }}
+          />
+        </div> */}
         <div className="header-actions">
           {!user ? (
             <>
@@ -91,7 +103,9 @@ const Home_page = () => {
         </div>
 
         <Favourite width={25} height={25} />
-        <CartIcon width={25} height={25} />
+        <button onClick={handleCartOpen}>
+          <CartIcon width={25} height={25} />
+        </button>
         <DarkModeToggle />
       </div>
       <div className="main">

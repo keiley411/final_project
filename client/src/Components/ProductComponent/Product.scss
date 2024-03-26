@@ -12,6 +12,18 @@
   
   }
 }
+
+.add-to-cart, .add-to-cart:focus, .add-to-cart:focus-visible {
+  width: 80%;
+  height: 3em;
+  margin: auto;
+  font-size: larger;
+  text-align: center;
+  border: .1em solid black;
+  border-radius: .4em;
+
+  justify-self: center;
+}
 .product-actions {
   display: flex;
   flex-direction: row;
@@ -55,4 +67,11 @@
  button {
   margin: 0;
  }
+}
+
+@media screen and (max-width: 500px) {
+  .product {
+      margin: 0;
+      margin-bottom: 2em;
+  }
 }
