@@ -11,6 +11,7 @@ import CategoryProducts from "./Components/Admin-page/CategoryProducts/CategoryP
 import AdminCategory from "./Components/Admin-page/AdminCategory/AdminCategory";
 import Category_List from "./Components/CategoryComponent/Category_List";
 import About from "./Components/AboutComponent/About";
+
 const App = () => {
   return (
     <Router>
@@ -32,6 +33,7 @@ const App = () => {
             path="/categories/:category_id"
             element={<CategoryProducts />}
           />
+        
         </Route>
       </Routes>
     </Router>

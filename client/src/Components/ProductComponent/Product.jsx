@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import CartIcon from "../IconComponent/CartIcon";
-import Favourite from "../IconComponent/Favourite";
+// import CartIcon from "../IconComponent/CartIcon";
+// import Favourite from "../IconComponent/Favourite";
 import { useAdminUser } from "../../Hooks";
 import { SERVER_URL } from "../../constants";
 import {
@@ -11,6 +11,7 @@ import Overlay from "../Overlay/Overlay";
 import { addToCart, removeFromCart } from "../../Features/Cart/CartSlice";
 import ProductForm from "./ProductForm/ProductForm";
 import { useDispatch } from "react-redux";
+import Rating from "../../Components/Rating/Rating";
 
 import "./Product.scss";
 const Product = ({ product }) => {
@@ -48,19 +49,24 @@ const Product = ({ product }) => {
             width={200}
             height={200}
           />
-          <div className="product-actions">
+          {/* <div className="product-actions">
             <button className="icon-btn">
               <Favourite width={25} height={25} />
             </button>
             <button className="icon-btn">
               <CartIcon color={"black"} width={25} height={25} />
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="product-info">
           <p>{product.name}</p>
-          <p>{product.price}</p>
+          <p>Ksh {product.price}</p>
           <p>{product.description}</p>
+
+          <div className="rate">
+            <Rating />
+          </div>
+
           {isAdmin ? (
             <div className="admin-actions">
               <button onClick={() => handleEditProduct(product)}>Edit</button>

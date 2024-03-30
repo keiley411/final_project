@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import DarkModeToggle from "./DarkModeToggle";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-// import Search from "../SearchComponent/Search";
+import Search from "../SearchComponent/Search";
 import Category_Nav from "../CategoryComponent/Category_Nav";
 import { useAuthenticatedUser } from "../../Hooks";
 import AuthContext from "../../Context/Auth/AuthContext";
@@ -68,13 +68,13 @@ const Home_page = () => {
           </ul>
         </div>
 
-        {/* <div className="nav2">
+        <div className="nav2">
           <Search
             handleSearch={(data) => {
               console.log(data);
             }}
           />
-        </div> */}
+        </div>
         <div className="header-actions">
           {!user ? (
             <>
@@ -104,7 +104,7 @@ const Home_page = () => {
 
         <Favourite width={25} height={25} />
         <button onClick={handleCartOpen}>
-          <CartIcon width={25} height={25} />
+          <CartIcon width={25} height={25}  />
         </button>
         <DarkModeToggle />
       </div>

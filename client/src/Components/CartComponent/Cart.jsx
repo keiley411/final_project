@@ -1,7 +1,6 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./Cart.scss";
-import { cartTotalPriceSelector } from "../../Features/Cart/CartPrice/length";
 import {
   decrementProduct,
   incrementProduct,
@@ -11,14 +10,17 @@ import { SERVER_URL } from "../../constants";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  const totalPrice = useSelector(cartTotalPriceSelector);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [addedProduct, setAddedProduct] = useState(null);
   console.log(cart);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(cartTotalPriceSelector());
-  }, [cart.products, dispatch]);
+    let price = cart.products.reduce((totalPrice, product) => {
+      return totalPrice + product.price * product.quantity;
+    }, 0);
+    setTotalPrice(price);
+  }, [cart.products]);
 
   console.log(cart);
   return (
@@ -35,7 +37,7 @@ const Cart = () => {
               <div className="info">
                 <div className="details">
                   <span className="title">{product.name}</span>
-                  <span className="title">{product.price}</span>
+                  <span className="title">Ksh {product.price}</span>
                 </div>
 
                 <div className="actions">
@@ -71,14 +73,7 @@ const Cart = () => {
         </div>
 
         <div className="cart-footer">
-          {addedProduct && (
-            <>
-              <p className="product-name">{product.name}</p>
-              <p className="product-price">{product.price}</p>
-            </>
-          )}
-
-          <p className="total-price">Total Price: Ksh.{totalPrice}</p>
+          <p>Total Price:Ksh {totalPrice}</p>
         </div>
       </div>
     )

@@ -1,14 +1,14 @@
-import React from "react";
-
-const Favourite = () => {
-  const [favourite, setFavourite] = useState(0);
+import React,{useState} from "react";
+import "./Rating.scss"
+const Rating = () => {
+  const [rating, setRating] = useState(0);
   const rankings = [1, 2, 3, 4, 5];
   return (
     <p className="favcomponent">
       {rankings.map((rank) => {
         return (
-          <button className="favbutton" onClick={() => setFavourite(rank)}>
-            {favourite >= rank ? "★" : "☆"}
+          <button className="favbutton" onClick={() => setRating(rank)}>
+            {rating >= rank ? "★" : "☆"}
           </button>
         );
       })}
@@ -16,4 +16,4 @@ const Favourite = () => {
   );
 };
 
-export default Favourite;
+export default Rating;

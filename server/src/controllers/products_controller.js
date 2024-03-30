@@ -20,7 +20,11 @@ const checkProducts = async (req, res) => {
   }
 }
 const allProducts = async (req, res) => {
-    const products = await prisma.product.findMany();
+    const products = await prisma.product.findMany({
+      include: {
+        category: true,
+      },
+    });
     res.send({status: 'success', products});
   }
 

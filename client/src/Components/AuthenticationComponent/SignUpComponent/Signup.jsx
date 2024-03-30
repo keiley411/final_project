@@ -1,27 +1,27 @@
 import React, { useState } from "react";
 import { useFormState } from "../../../Hooks";
 import { Link, useNavigate } from "react-router-dom";
-import "./Signup.scss"
+import "./Signup.scss";
 import { SERVER_URL } from "../../../constants";
 import { useRegisterUserMutation } from "../../../Features/api";
 const Signup = () => {
-  const [data, handleChange,reset] = useFormState({
+  const [data, handleChange, reset] = useFormState({
     user_name: "",
     email: "",
     password: "",
     confirm_password: "",
   });
-  const [registerUser, result] = useRegisterUserMutation()
-const navigate = useNavigate()
-  const handleSubmit = async(event) => {
+  const [registerUser, result] = useRegisterUserMutation();
+  const navigate = useNavigate();
+  const handleSubmit = async (event) => {
     event.preventDefault();
     registerUser(data)
-    .unwrap()
-    .then((response) => {
-      reset();
-      return navigate("/login");
-    })
-    .catch(console.error);
+      .unwrap()
+      .then((response) => {
+        reset();
+        return navigate("/login");
+      })
+      .catch(console.error);
   };
 
   return (
@@ -69,12 +69,7 @@ const navigate = useNavigate()
           </label>
           <button type="submit">Sign Up</button>
           <div className="login-link">
-          <p>Already have an account?</p>
-            {" "}
-            <Link to="/login">
-              
-              <button>Login</button>
-            </Link>
+            <p>Already have an account?</p> <Link to="/login">Login</Link>
           </div>
         </form>
       </div>

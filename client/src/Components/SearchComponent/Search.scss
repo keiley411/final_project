@@ -18,4 +18,13 @@
     border: 1px solid #ccc;
     
   }
-  
+  .found-products {
+    position: absolute;
+    z-index: 30;
+    top: 40px;
+    max-height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+  }
