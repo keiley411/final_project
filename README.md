@@ -2,10 +2,9 @@
 
 
 
-## Project setup
+## Project setup/ installation
 ```
 pnpm install
-```
 pnpm install react
 pnpm install react-dom
 pnpm install react-router-dom
