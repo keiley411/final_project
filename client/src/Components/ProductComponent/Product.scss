@@ -6,9 +6,22 @@
   align-items: center;
 }
 .product-img {
+  position: relative;
   img {
     border-radius: 8px;
     width: 250px;
+  }
+  .product-img:hover .icon {
+    visibility:hidden;
+  }
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: visible;
+   
+     
   }
 }
 

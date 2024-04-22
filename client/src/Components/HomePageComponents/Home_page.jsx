@@ -12,6 +12,7 @@ import Cart from "../CartComponent/Cart";
 import "./Home_page.scss";
 import { toggleCart } from "../../Features/Cart/CartSlice";
 import { useDispatch } from "react-redux";
+import WishList from "../WishListComponent/WishList";
 
 const Home_page = () => {
   const { logoutUser } = useContext(AuthContext);
@@ -40,6 +41,7 @@ const Home_page = () => {
   return (
     <>
       <Cart />
+      <WishList />
 
       <div className="navbar">
         <div className="nav1">
@@ -101,11 +103,15 @@ const Home_page = () => {
             </>
           )}
         </div>
-
-        <Favourite width={25} height={25} />
-        <button onClick={handleCartOpen}>
-          <CartIcon width={25} height={25}  />
+        
+        <button>
+          <Favourite className="icon" width={25} height={25} />
         </button>
+
+        <button onClick={handleCartOpen}>
+          <CartIcon width={25} height={25} />
+        </button>
+
         <DarkModeToggle />
       </div>
       <div className="main">

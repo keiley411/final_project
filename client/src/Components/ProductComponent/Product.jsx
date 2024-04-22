@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import Rating from "../../Components/Rating/Rating";
 
 import "./Product.scss";
+import Favourite from "../IconComponent/Favourite";
 const Product = ({ product }) => {
   const [user, isAdmin] = useAdminUser();
   const [isEditing, setIsEditing] = useState(false);
@@ -29,6 +30,7 @@ const Product = ({ product }) => {
   const handleDeleteProduct = async (product_id) => {
     deleteProduct(product_id);
   };
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <>
@@ -48,15 +50,10 @@ const Product = ({ product }) => {
             alt=""
             width={200}
             height={200}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           />
-          {/* <div className="product-actions">
-            <button className="icon-btn">
-              <Favourite width={25} height={25} />
-            </button>
-            <button className="icon-btn">
-              <CartIcon color={"black"} width={25} height={25} />
-            </button>
-          </div> */}
+          {isHovered && <Favourite className="icon" width={25} height={25}/>}
         </div>
         <div className="product-info">
           <p>{product.name}</p>
