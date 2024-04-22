@@ -104,7 +104,7 @@ const Home_page = () => {
           )}
         </div>
         
-        <button>
+        <button onClick={hand}>
           <Favourite className="icon" width={25} height={25} />
         </button>
 

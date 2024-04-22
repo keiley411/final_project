@@ -8,10 +8,7 @@ const FileInput = ({ onFileSelect, required}) => {
     formData.append("file", categoryImg);
     const response = await fetch(`${SERVER_URL}/uploads`, {
       body: formData,
-      // headers:{
-      //     // "Content-Type":"applicaton/x-www-form-urlencoded"
-      //     "Content-Type":"multipart/form-data"
-      // },
+      
       method: "post",
     });
     const data = await response.json();

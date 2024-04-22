@@ -12,7 +12,10 @@ import { addToCart, removeFromCart } from "../../Features/Cart/CartSlice";
 import ProductForm from "./ProductForm/ProductForm";
 import { useDispatch } from "react-redux";
 import Rating from "../../Components/Rating/Rating";
-
+import {
+  addToWishList,
+  removeFromWishList,
+} from "../../Features/WishList/WishListSlice";
 import "./Product.scss";
 import Favourite from "../IconComponent/Favourite";
 const Product = ({ product }) => {
@@ -50,10 +53,20 @@ const Product = ({ product }) => {
             alt=""
             width={200}
             height={200}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            // onMouseEnter={() => setIsHovered(true)}
+            // onMouseLeave={() => setIsHovered(false)}
           />
-          {isHovered && <Favourite className="icon" width={25} height={25}/>}
+          {/* {isHovered && <Favourite onClick={() => dispatch(addToWishList(product))} className="icon" width={25} height={25}/>} */}
+        </div>
+        <div className="wishlist">
+          <button>
+            <Favourite
+              onClick={() => dispatch(addToWishList(product))}
+              className="icon"
+              width={25}
+              height={25}
+            />
+          </button>
         </div>
         <div className="product-info">
           <p>{product.name}</p>
