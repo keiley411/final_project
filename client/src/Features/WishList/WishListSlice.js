@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const wishlistSlice = createSlice({
   name: "wishlist",
-  initialState: [],
+  initialState: {
+    products: [],
+    isOpen: false,
+  },
   reducers: {
     addToWishList: (state, action) => {
       const productAlreadyInWishList = state.products.find(
@@ -12,15 +15,9 @@ const wishlistSlice = createSlice({
       if (productAlreadyInWishList) {
         const newState = {
           ...state,
-          products: state.products.map((product) => {
-            if (product.id === productAlreadyInWishList.id) {
-              return {
-                ...product,
-                quantity: product.quantity + 1,
-              };
-            }
-            return product;
-          }),
+          products: state.products.filter(
+            (product) => product.id != action.payload.id
+          ),
         };
         return newState;
       }
@@ -45,39 +42,8 @@ const wishlistSlice = createSlice({
         isOpen: !state.isOpen,
       };
     },
-
-    incrementProduct: (state, action) => {
-      const newProducts = state.products.map((product) =>
-        product.id === action.payload.id
-          ? {
-              ...product,
-              quantity: product.quantity + 1,
-            }
-          : product
-      );
-
-      return {
-        ...state,
-        products: newProducts,
-      };
-    },
-
-    decrementProduct: (state, action) => {
-      const newProducts = state.products.map((product) =>
-        product.id === action.payload.id && product.quantity > 1
-          ? {
-              ...product,
-              quantity: product.quantity - 1,
-            }
-          : product
-      );
-      return {
-        ...state,
-        products: newProducts,
-      };
-    },
   },
 });
 
-export const { addToWishList, removeFromWishList,decrementProduct, incrementProduct,toggleWishList } = wishlistSlice.actions;
+export const { addToWishList, removeFromWishList, toggleWishList } = wishlistSlice.actions;
 export default wishlistSlice.reducer;

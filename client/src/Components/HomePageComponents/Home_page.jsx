@@ -13,7 +13,7 @@ import "./Home_page.scss";
 import { toggleCart } from "../../Features/Cart/CartSlice";
 import { useDispatch } from "react-redux";
 import WishList from "../WishListComponent/WishList";
-
+import { toggleWishList } from "../../Features/WishList/WishListSlice";
 const Home_page = () => {
   const { logoutUser } = useContext(AuthContext);
   const [user, isLoading] = useAuthenticatedUser();
@@ -37,6 +37,19 @@ const Home_page = () => {
     console.log("open cart");
     dispatch(toggleCart());
   };
+  const handleWishListOpen = () => {
+    console.log("open wish list");
+    dispatch(toggleWishList());
+  };
+  console.log("Cart:", Cart);
+  console.log("Cart.products:", Cart.products);
+
+  const totalItemsInCart =
+    Cart && Cart.products
+      ? Cart.products.reduce((totalPrice, product) => {
+          return totalPrice + product.quantity;
+        }, 0)
+      : 0;
 
   return (
     <>
@@ -103,8 +116,8 @@ const Home_page = () => {
             </>
           )}
         </div>
-        
-        <button onClick={hand}>
+
+        <button onClick={handleWishListOpen}>
           <Favourite className="icon" width={25} height={25} />
         </button>
 

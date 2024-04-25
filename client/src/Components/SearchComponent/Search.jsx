@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Search.scss";
+import { Link } from "react-router-dom"; // Import Link for navigation
 import { useGetAllProductsQuery } from "../../Features/api";
+
 const Search = () => {
   const [searchText, setSearchText] = useState("");
   const [searchBy, setSearchBy] = useState("name");
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [selectedProductId, setSelectedProductId] = useState(null); // State to store selected product ID
   const {
     data: products,
     isLoading,
@@ -14,8 +17,6 @@ const Search = () => {
   } = useGetAllProductsQuery();
 
   useEffect(() => {
-    // console.log(products)
-    console.log(searchText, searchBy);
     if (searchText.length < 3) {
       setFilteredProducts([]);
       return;
@@ -26,7 +27,6 @@ const Search = () => {
       const filtered_products = products.filter((product) =>
         product.name.toLowerCase().includes(searchText.toLowerCase())
       );
-      console.log(filtered_products);
       setFilteredProducts(filtered_products);
     }
 
@@ -34,11 +34,9 @@ const Search = () => {
       const filtered_products = products.filter((product) =>
         product.category.title.toLowerCase().includes(searchText.toLowerCase())
       );
-      console.log(filtered_products);
-
       setFilteredProducts(filtered_products);
     }
-  }, [searchBy, searchText]);
+  }, [searchBy, searchText, isSuccess, products]);
 
   const handleChange = (event) => {
     setSearchText(event.target.value);
@@ -48,17 +46,22 @@ const Search = () => {
     setSearchBy(event.target.value);
   };
 
-  // const handleKeyDown = (event) => {
-  //   if (event.key === "Enter") {
-  //     handleSearch({ searchText, searchBy });
-  //   }
-  // };
+  const handleProductClick = (product) => {
+    setSelectedProductId(product.id);
+  };
+
   if (isLoading) {
     return <div>Loading ... </div>;
   }
   if (isError) {
     return <div>{error}</div>;
   }
+
+  // Redirect to the product page if a product is selected
+  if (selectedProductId) {
+    return <Redirect to={`/product/${selectedProductId}`} />;
+  }
+
   return (
     <div className="search-filter">
       <input
@@ -66,7 +69,6 @@ const Search = () => {
         value={searchText}
         placeholder="Search a product..."
         onChange={handleChange}
-        // onKeyDown={handleKeyDown}
       />
 
       <select name="" id="" value={searchBy} onChange={handleSelectChange}>
@@ -77,10 +79,12 @@ const Search = () => {
       {filteredProducts.length > 0 && (
         <div className="found-products">
           {filteredProducts.map((product) => (
-            <div key={product.id}>
-              <img src={product.image_url} alt="" />
-              <p>{product.name}</p>
-              <p>price:Ksh {product.price}</p>
+            <div className="product-list"key={product.id} onClick={() => handleProductClick(product.id)}>
+              <Link to={`/products/${product.id}`}>
+                <img src={product.image_url} alt="" />
+                <p>{product.name}</p>
+                <p>Ksh {product.price}</p>
+              </Link>
             </div>
           ))}
         </div>

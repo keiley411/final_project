@@ -23,9 +23,11 @@ const Cart = () => {
   }, [cart.products]);
 
   console.log(cart);
+ 
   return (
     cart.isOpen && (
       <div className="cart">
+        
         <div className="cart-main">
           {cart.products.map((product) => (
             <div className="cart-product" key={product.id}>

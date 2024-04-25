@@ -53,19 +53,11 @@ const Product = ({ product }) => {
             alt=""
             width={200}
             height={200}
-            // onMouseEnter={() => setIsHovered(true)}
-            // onMouseLeave={() => setIsHovered(false)}
           />
-          {/* {isHovered && <Favourite onClick={() => dispatch(addToWishList(product))} className="icon" width={25} height={25}/>} */}
         </div>
-        <div className="wishlist">
-          <button>
-            <Favourite
-              onClick={() => dispatch(addToWishList(product))}
-              className="icon"
-              width={25}
-              height={25}
-            />
+        <div className="wishlist-icon">
+          <button onClick={() => dispatch(addToWishList(product))}>
+            <Favourite className="icon" width={25} height={25} />
           </button>
         </div>
         <div className="product-info">

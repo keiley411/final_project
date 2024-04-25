@@ -91,3 +91,26 @@ input[type="button"]:hover {
   background-color: rgb(239, 223, 201);
 }
 
+.cart-indicator {
+  position: relative; /* Needed for badge positioning */
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Align icon and badge vertically */
+  margin-bottom: 10px; /* Optional spacing below the indicator */
+}
+
+.cart-count {
+  position: absolute; /* Position badge on top of the icon */
+  top: -10px; /* Adjust position as needed */
+  right: -5px; /* Adjust position as needed */
+  background-color: red; /* Badge color */
+  color: white; /* Badge text color */
+  padding: 2px 5px; /* Badge size */
+  border-radius: 50%; /* Round badge */
+  font-size: 10px; /* Badge text size */
+}
+
+.shopping-cart {
+  font-size: 10px; /* Adjust icon size as needed */
+  margin-right: 5px; /* Spacing between icon and badge */
+}
