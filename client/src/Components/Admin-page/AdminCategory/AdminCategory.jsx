@@ -28,7 +28,7 @@ const AdminCategory = () => {
   }
 
   console.log(result.currentData, categoryResult);
-  // result.refetch()
+  
 
   return (
     <div>

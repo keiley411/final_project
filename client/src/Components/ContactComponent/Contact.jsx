@@ -15,7 +15,7 @@ export const Contact = () => {
     reset();
     setIsSubmitted(true);
   };
-  // console.log(data);
+
 
   return (
     <>

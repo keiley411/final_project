@@ -22,13 +22,11 @@ export const useFormState = (formData) => {
 
 export const useAuthenticatedUser = (isLogin = false) => {
   const {user, isLoading,verifyToken} = useContext(AuthContext)
-  // const navigate = useNavigate();
+  
 
   useEffect(() => {
     verifyToken()
-    // if (isLogin && result.isError) {
-    //   return navigate("/login");
-    // }
+    
   }, []);
 
   return [user, isLoading];

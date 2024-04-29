@@ -30,7 +30,7 @@ const CategoryProducts = () => {
   }
 
   console.log(result.currentData, categoryResult);
-  // result.refetch()
+
 
   return (
     <div className="category-container">

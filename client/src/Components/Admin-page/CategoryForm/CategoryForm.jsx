@@ -17,7 +17,7 @@ const CategoryForm = () => {
       image_url: imagePath,
     };
     console.log(postData);
-    // POST /categories/new postData
+   
     addCategory(postData);
   };
 

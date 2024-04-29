@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import CartIcon from "../IconComponent/CartIcon";
-// import Favourite from "../IconComponent/Favourite";
 import { useAdminUser } from "../../Hooks";
 import { SERVER_URL } from "../../constants";
 import {
@@ -18,6 +16,7 @@ import {
 } from "../../Features/WishList/WishListSlice";
 import "./Product.scss";
 import Favourite from "../IconComponent/Favourite";
+
 const Product = ({ product }) => {
   const [user, isAdmin] = useAdminUser();
   const [isEditing, setIsEditing] = useState(false);

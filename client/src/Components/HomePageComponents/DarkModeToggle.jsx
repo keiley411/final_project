@@ -7,7 +7,6 @@ import "./DarkMode.scss"
 const DarkModeToggle = () => {
   const [state, setState] = useState(true);
   const handleClick = () => {
-    // selects the theme to be changed to
     const theme = !state ? "dark" : "light";
     changeColorScheme(theme).then(() => {
       setState(theme === "dark");

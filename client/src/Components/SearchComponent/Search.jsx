@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Search.scss";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { Link } from "react-router-dom";
 import { useGetAllProductsQuery } from "../../Features/api";
 
 const Search = () => {
   const [searchText, setSearchText] = useState("");
   const [searchBy, setSearchBy] = useState("name");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [selectedProductId, setSelectedProductId] = useState(null); // State to store selected product ID
+  const [selectedProductId, setSelectedProductId] = useState(null); 
   const {
     data: products,
     isLoading,
@@ -57,7 +57,7 @@ const Search = () => {
     return <div>{error}</div>;
   }
 
-  // Redirect to the product page if a product is selected
+
   if (selectedProductId) {
     return <Redirect to={`/product/${selectedProductId}`} />;
   }

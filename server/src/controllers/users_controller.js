@@ -38,7 +38,7 @@ const newUser = async (req, res) => {
     }
      newUser.hashedPassword = await generateHashedPassword(newUser.password)
 
-// then udelete password yenye haijahashiwa
+
 delete
     delete newUser.password;
     const user = await prisma.user.create({
