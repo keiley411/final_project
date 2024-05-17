@@ -49,5 +49,5 @@ On clicking a particular category,it routes one to that category with a unique i
 - deploy the project on Azure
 - intergrate mpesa
 - search feature to route to the specific product/ category
-- implement the wishlist
+
   
