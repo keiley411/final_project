@@ -1,0 +1,30 @@
+.info_product {
+  padding: 15px;
+
+  .product-image {
+    img {
+      border-radius: 10px !important;
+    }
+  }
+
+  .wishlist-icons {
+    padding-left: 80px;
+  }
+  .product-infos {
+    padding-left: 50px;
+
+    .add-to-cart,
+    .add-to-cart:focus,
+    .add-to-cart:focus-visible {
+      width: 80%;
+      height: 3em;
+      margin: auto;
+      font-size: larger;
+      text-align: center;
+      background-color: rgb(227, 184, 114);
+      border-color: rgb(223, 186, 138);
+      border-radius: 0.4em;
+      justify-self: center;
+    }
+  }
+}

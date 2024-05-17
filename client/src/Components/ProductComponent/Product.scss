@@ -12,7 +12,7 @@
     width: 250px;
   }
   .product-img:hover .icon {
-    visibility:hidden;
+    visibility: hidden;
   }
   .icon {
     position: absolute;
@@ -20,8 +20,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     visibility: visible;
-   
-     
   }
 }
 
@@ -33,9 +31,9 @@
   margin: auto;
   font-size: larger;
   text-align: center;
-  border: 0.1em solid black;
+  background-color: rgb(227, 184, 114);
+  border-color: rgb(223, 186, 138);
   border-radius: 0.4em;
-
   justify-self: center;
 }
 .product-actions {
@@ -53,7 +51,6 @@
 
     font-size: 16px;
     cursor: pointer;
-    
   }
 }
 .product-info {

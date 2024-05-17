@@ -11,7 +11,8 @@ import CategoryProducts from "./Components/Admin-page/CategoryProducts/CategoryP
 import AdminCategory from "./Components/Admin-page/AdminCategory/AdminCategory";
 import Category_List from "./Components/CategoryComponent/Category_List";
 import About from "./Components/AboutComponent/About";
-
+import Product from "./Components/ProductComponent/Product";
+import Product_details from "./Components/ProductComponent/Product_details";
 const App = () => {
   return (
     <Router>
@@ -24,11 +25,16 @@ const App = () => {
           <Route path="/admin" element={<Admin />} />
           <Route
             path="/admin/categories/:category_id"
-            element={<AdminCategory />}
+            element={<AdminCategory />}  
+          />
+          <Route
+            path="/products/:product_id"
+            element={<Product_details/>}
           />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign" element={<Signup />} />
+          {/* <Route path="/products/:product_id" element={<Product/>} /> */}
           <Route
             path="/categories/:category_id"
             element={<CategoryProducts />}
